@@ -1,0 +1,4 @@
+wrote C:\Users\Manas\Downloads\Total Job Application process flow\projects\securitization-disclosure-validation-gate\docs\exception_pack.xlsx (16479 bytes)
+Assertion Catalog: 227 rows
+Exceptions Detail: 60 rows
+Summary By File: 4 rows

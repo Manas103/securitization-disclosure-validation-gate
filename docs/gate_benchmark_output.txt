@@ -1,0 +1,6 @@
+-- claim: 60 of 60 seeded violations caught, attributed to the correct record and attribute --
+seeded violations caught: 60 / 60
+unexpected violations on the seeded-violation load: 0
+
+-- claim: 0 of 20 independently generated clean files falsely held --
+false holds across 20 independent clean loads: 0

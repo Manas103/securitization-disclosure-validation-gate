@@ -1,0 +1,6 @@
+-- claim: correction files emit a field-level restatement diff naming exactly the changed fields --
+correction records with an exact restatement diff: 40 / 40
+
+example restatement diff (first correction record):
+  S-54 (Interest Rate Adjustment Frequency): '565' -> '955'
+  lineage: correction-99-0000 supersedes mk-2024-0051

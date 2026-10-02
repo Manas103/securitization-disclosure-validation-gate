@@ -1,0 +1,886 @@
+{
+  "spec_name": "freddie_mac_multifamily_security_core_v1_11",
+  "source_document": "Freddie Mac Multifamily Disclosure Guide",
+  "source_url": "https://capitalmarkets.freddiemac.com/mbs/docs/multifamily_disclosure_guide.pdf",
+  "guide_version": "1.11",
+  "guide_effective_date": "2025-10-02",
+  "file_layout": "security_core",
+  "file_layout_description": "The Security Level File layout (attribute IDs S-01 through S-99 in the guide). Per the guide's Introduction (Timing and Frequency of Data table, page 7) this one layout is shared, byte-for-byte identical, by four file types: mkYYMMDD.txt (Daily Issuance Security Core), moYYMMDD.txt (Daily Issuance Correction Core), miYYMMDD.txt (Monthly Security Core / factor file), and mwYYMMDD.txt (Monthly Correction Core).",
+  "extraction_method": "Downloaded the real PDF and extracted every Security Level File attribute-table row with pdfplumber's extract_tables() (pdftotext -layout was tried first and rejected: the table's wrapped multi-line cells came out misaligned across columns). 98 attribute rows (S-01..S-99) were found; 87 had a complete, unambiguous Data Type, Format and Max Length triple in the same extracted row and are used here verbatim (attribute_id, name, definition, datatype, format, max_length, enumeration all come from the real table). The 11 excluded (S-31, S-32, S-84..S-91) had their Data Type/Max Length cell blank in the extracted row because the source PDF merges that cell visually across an adjacent attribute's taller definition text; rather than guess, they were dropped.",
+  "attributes": [
+    {
+      "attribute_id": "S-01",
+      "name": "Prefix",
+      "definition": "The designation assigned by the issuer denoting the type of the loans and the security.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-02",
+      "name": "Security Identifier",
+      "definition": "The unique designation assigned to the security by the issuer.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-03",
+      "name": "CUSIP",
+      "definition": "The unique designation assigned to the security by the Committee on Uniform Securities Identification Procedures (CUSIP).",
+      "datatype": "string",
+      "format": null,
+      "max_length": 9,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-04",
+      "name": "Security Factor Date",
+      "definition": "The month and year on which the corresponding factor is effective.",
+      "datatype": "date",
+      "format": "MMCCYY",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-05",
+      "name": "Security Factor",
+      "definition": "The decimal value that, when multiplied by the Issuance Investor Security UPB amount, equals the Current Investor Security UPB amount.",
+      "datatype": "numeric",
+      "format": "1.8",
+      "max_length": 10,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-06",
+      "name": "Payment Delay Days",
+      "definition": "The indicator used to denote that the loans in the security participate in a 45 Day, 55 Day, or a 75 Day payment delay period at the time the security was issued.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 2,
+      "enumeration": [
+        "45",
+        "55",
+        "75"
+      ]
+    },
+    {
+      "attribute_id": "S-07",
+      "name": "Security Data Correction Indicator",
+      "definition": "The indicator used to denote the data correction status of the security based on the current reporting period.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "attribute_id": "S-08",
+      "name": "Security Status Indicator",
+      "definition": "The indicator used to denote the status of the security based on the current reporting period.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "A",
+        "P",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "attribute_id": "S-09",
+      "name": "Security Notification Indicator",
+      "definition": "The indicator used to denote whether the disclosure is preliminary and subject to change or final.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "P",
+        "F",
+        "7"
+      ]
+    },
+    {
+      "attribute_id": "S-10",
+      "name": "Security Description",
+      "definition": "The unique designation of the security including abbreviated FED CODE, WA Net Interest Rate, Prefix and Security Identifier.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 22,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-11",
+      "name": "Issuer",
+      "definition": "The name of the entity that issued the security.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 3,
+      "enumeration": [
+        "FNM",
+        "FRE"
+      ]
+    },
+    {
+      "attribute_id": "S-12",
+      "name": "Issue Date",
+      "definition": "The date on which the security was issued.",
+      "datatype": "date",
+      "format": "MMDDCCYY",
+      "max_length": 8,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-13",
+      "name": "Maturity Date",
+      "definition": "The month and year in which the final payment on the security is scheduled to be made at the time the security was issued.",
+      "datatype": "date",
+      "format": "MMCCYY",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-14",
+      "name": "Updated Longest Maturity Date",
+      "definition": "The updated month and year in which the final payment on the security is scheduled to be made based on the longest maturity date of the remaining loans in the security.",
+      "datatype": "date",
+      "format": "MMCCYY",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-15",
+      "name": "Issuance Investor Security UPB",
+      "definition": "The aggregate unpaid principal balance of the loans as they contribute to the balance of the security at the time the security was issued.",
+      "datatype": "numeric",
+      "format": "14.2",
+      "max_length": 17,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-16",
+      "name": "Current Investor Security UPB",
+      "definition": "The aggregate unpaid principal balance of the loans as they contribute to the current balance of the security.",
+      "datatype": "numeric",
+      "format": "14.2",
+      "max_length": 17,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-17",
+      "name": "WA Net Interest Rate (Unconverted)",
+      "definition": "The weighted average interest rate of the loans less servicing fees and guarantor fees.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-18",
+      "name": "WA Issuance Interest Rate",
+      "definition": "The weighted average interest rate of the loans in effect at the time the security was issued.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-19",
+      "name": "WA Current Interest Rate",
+      "definition": "The weighted average interest rate of the loans in effect during the current reporting period.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-20",
+      "name": "WA Net Accrual Interest Rate",
+      "definition": "For adjustable-rate loans, the weighted average Interest Rate less servicing fees and guarantor fees.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-21",
+      "name": "WA Loan Term",
+      "definition": "The weighted average number of months in which regularly scheduled borrower payments are due.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-22",
+      "name": "WA Issuance Remaining Months to Maturity",
+      "definition": "The weighted average number of scheduled monthly payments that will reduce the Investor Loan UPB to zero, at the time the security was issued. For fixed-rate loans, this value takes into account the impact of any curtailments.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-23",
+      "name": "WA Current Remaining Months to Maturity",
+      "definition": "The weighted average number of scheduled monthly payments that will reduce the Current Investor Loan UPB to zero. For fixed-rate loans, this value takes into account the impact of any curtailments.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-24",
+      "name": "WA Loan Age",
+      "definition": "The weighted average number of scheduled payments from the time the loans were originated or modified up to and including the current reporting period.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-25",
+      "name": "WA Mortgage Loan Amount",
+      "definition": "The weighted average dollar amount of the loans as stated on the notes at the time the loans were originated or modified. For reperforming, modified fixed-rate and modified step-rate loans, this value represents both the interest bearing and non-interest bearing amount.",
+      "datatype": "numeric",
+      "format": "9.2",
+      "max_length": 12,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-26",
+      "name": "Average Mortgage Loan Amount",
+      "definition": "The simple average dollar amount of the loans as stated on the notes at the time the loans were originated or modified. For reperforming, modified fixed-rate and modified step-rate loans, this value represents both the interest bearing and non-interest bearing amount.",
+      "datatype": "numeric",
+      "format": "9.2",
+      "max_length": 12,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-27",
+      "name": "WA Loan-To-Value (LTV)",
+      "definition": "The weighted average ratio, expressed as a percentage, obtained by dividing the amount of the loans at security issuance by the value of the properties.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-28",
+      "name": "WA Combined Loan- To-Value (CLTV)",
+      "definition": "The weighted average ratio, expressed as a percentage, obtained by dividing the amount of all known outstanding loans at security issuance by the value of the properties.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-29",
+      "name": "WA Debt-To-Income (DTI)",
+      "definition": "The weighted average ratio obtained by dividing the total monthly debt expenses by the total monthly incomes of the borrowers at the time the loans were originated or modified.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-30",
+      "name": "WA Borrower Credit Score",
+      "definition": "The weighted average standardized credit score used to evaluate the borrower during the loan origination process. For reperforming, modified fixed-rate and modified step-rate loans, this value will be blank.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 4,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-33",
+      "name": "Loan Count",
+      "definition": "The total number of loans in the security.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 9,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-34",
+      "name": "Third Party Origination UPB Percent",
+      "definition": "The percentage of the aggregate Investor Loan UPB that were originated by a third party, to include Broker and Correspondent originations. For reperforming, modified fixed-rate and",
+      "datatype": "numeric",
+      "format": "3.2",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-35",
+      "name": "Seller Name",
+      "definition": "The name of the entity that sold the loans to the issuer.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 100,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-36",
+      "name": "Seller City",
+      "definition": "The city of the address of the entity that sold the loans to the issuer.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 50,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-37",
+      "name": "Seller State",
+      "definition": "The state or territory of the address of the entity that sold the loans to the issuer.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 2,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-38",
+      "name": "Servicer Name",
+      "definition": "The name of the entity that services the loan during the current reporting period.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 100,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-39",
+      "name": "Servicer City",
+      "definition": "The city of the address of the entity that services the loan.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 50,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-40",
+      "name": "Servicer State",
+      "definition": "The state or territory of the address of the entity that services the loan.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 2,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-41",
+      "name": "Involuntary Loan Purchases (Prior Month UPB) Formerly Known As: Delinquent Loans Purchased (Prior Month UPB)",
+      "definition": "The aggregate prior period Investor Loan UPB of the loans that were removed from the security due to involuntary reasons during the current reporting period. Involuntary reasons include loan delinquencies, loss mitigation efforts and lender repurchases.",
+      "datatype": "numeric",
+      "format": "14.2",
+      "max_length": 17,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-42",
+      "name": "Involuntary Loan Purchases (Loan Count) Formerly Known As: Delinquent Loans Purchased (Loan Count)",
+      "definition": "The number of loans that were removed from the security due to involuntary reasons during the current reporting period. Involuntary reasons include loan delinquencies, loss mitigation efforts and lender repurchases.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 9,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-43",
+      "name": "Eligible for Resecuritization",
+      "definition": "The indicator used to denote that the security is eligible for resecuritization.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "attribute_id": "S-46",
+      "name": "Interest Only Security Indicator",
+      "definition": "The indicator denoting whether the loans only require interest payments for a specified period beginning with the first payment date.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "attribute_id": "S-47",
+      "name": "WA Months to Amortization",
+      "definition": "For interest-only loans, the weighted average number of months from the current month to the first scheduled principal and interest payment date.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-48",
+      "name": "Prepayment Penalty Indicator",
+      "definition": "The indicator denoting whether the security is subject to a penalty for early payment of principal.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "Y",
+        "N",
+        "9"
+      ]
+    },
+    {
+      "attribute_id": "S-49",
+      "name": "Reduced Minimum Servicing Indicator",
+      "definition": "The indicator denoting whether the loans in the security may have a reduced servicing fee.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "Y",
+        "N",
+        "9"
+      ]
+    },
+    {
+      "attribute_id": "S-50",
+      "name": "Subtype",
+      "definition": "For an adjustable-rate mortgage, the code that identifies ARM product characteristics and features.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 20,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-51",
+      "name": "Index",
+      "definition": "For adjustable-rate loans, the description of the index on which adjustments to the interest rate are based.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-52",
+      "name": "WA Mortgage Margin",
+      "definition": "For adjustable-rate loans, the weighted average number of percentage points to be added to the index to arrive at the new interest rate.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-53",
+      "name": "WA MBS PC Margin",
+      "definition": "For adjustable-rate loans, the weighted average mortgage margin less servicing fees and guarantor fees.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-54",
+      "name": "Interest Rate Adjustment Frequency",
+      "definition": "For adjustable-rate loans, the number of months, excluding any fixed-rate period, between scheduled rate changes.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-55",
+      "name": "Interest Rate Lookback",
+      "definition": "For adjustable-rate loans, the number of calendar days prior to the interest rate change date used to determine the effective index value required to calculate the next interest rate.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-56",
+      "name": "Payment Adjustment Frequency",
+      "definition": "For adjustable-rate loans, the number of months between scheduled payment changes. For a security with an initial fixed-rate period, the payment adjustment frequency is the number of months between subsequent payment changes.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-57",
+      "name": "Payment Lookback",
+      "definition": "For adjustable-rate loans, the number of calendar days prior to the interest rate change date used to determine the effective index value required to calculate the next payment.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-58",
+      "name": "Convertibility Indicator",
+      "definition": "For adjustable-rate loans, the indicator denoting whether the loans in the security have a feature that allows the borrower to convert from an adjustable rate to a fixed rate.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "Y",
+        "N",
+        "9"
+      ]
+    },
+    {
+      "attribute_id": "S-59",
+      "name": "Negative Amortization Indicator",
+      "definition": "For adjustable-rate loans, the indicator used to denote that the loans in the security allow negative amortization.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 1,
+      "enumeration": [
+        "Y",
+        "N",
+        "9"
+      ]
+    },
+    {
+      "attribute_id": "S-60",
+      "name": "Negative Amortization Factor",
+      "definition": "For negative amortizing adjustable-rate loans, the decimal value that, when multiplied by the Issuance Investor Security UPB amount, equals the Negative Amortization amount.",
+      "datatype": "numeric",
+      "format": "1.8",
+      "max_length": 10,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-61",
+      "name": "WA Negative Amortization Limit",
+      "definition": "For negative amortizing adjustable-rate loans, the weighted average Negative Amortization Limit of the loans in the security.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-62",
+      "name": "Initial Fixed Rate Period",
+      "definition": "For adjustable-rate loans, the number of calendar months between the first full month the loans accrue interest and the first interest rate change date.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 2,
+      "enumeration": [
+        "00",
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "55"
+      ]
+    },
+    {
+      "attribute_id": "S-63",
+      "name": "First Rate Adjustment Date",
+      "definition": "For adjustable-rate loans, the earliest First Rate Adjustment Date of the loans in the security.",
+      "datatype": "date",
+      "format": "MMCCYY",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-64",
+      "name": "First Payment Adjustment Date",
+      "definition": "For adjustable-rate loans, the earliest First Payment Adjustment Date of the loans in the security.",
+      "datatype": "date",
+      "format": "MMCCYY",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-65",
+      "name": "WA Months to Next Rate Adjustment Date",
+      "definition": "For adjustable-rate loans, the weighted average number of months from the current month to the next interest rate change date.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-66",
+      "name": "WA Life Interest Rate Ceiling",
+      "definition": "For adjustable-rate loans, the weighted average lifetime maximum interest rate.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-67",
+      "name": "WA Net Life Interest Rate Ceiling",
+      "definition": "For adjustable-rate loans, the weighted average maximum interest rate less servicing fees and guarantor fees.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-68",
+      "name": "WA Life Interest Rate Floor",
+      "definition": "For adjustable-rate loans, the weighted average lifetime minimum interest rate.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-69",
+      "name": "WA Net Life Interest Rate Floor",
+      "definition": "For adjustable-rate loans, the weighted average minimum interest rate less servicing fees and guarantor fees.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-70",
+      "name": "Initial Interest Rate Cap Up %",
+      "definition": "For adjustable-rate loans, the maximum percentage points the interest rate can adjust upward at the first interest rate change date.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": [
+        "55.555",
+        "77.777"
+      ]
+    },
+    {
+      "attribute_id": "S-71",
+      "name": "Initial Interest Rate Cap Down %",
+      "definition": "For adjustable-rate loans, the maximum percentage points the interest rate can adjust downward at the first interest rate change date.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": [
+        "55.555",
+        "77.777"
+      ]
+    },
+    {
+      "attribute_id": "S-72",
+      "name": "Periodic Interest Rate Cap Up %",
+      "definition": "For adjustable-rate loans, the maximum percentage points the interest rate can adjust upward at each interest rate change date after the first interest rate change date.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": [
+        "55.555",
+        "77.777"
+      ]
+    },
+    {
+      "attribute_id": "S-73",
+      "name": "Periodic Interest Rate Cap Down %",
+      "definition": "For adjustable-rate loans, the maximum percentage points the interest rate can adjust downward at each interest rate change date after the first interest rate change date.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": [
+        "55.555",
+        "77.777"
+      ]
+    },
+    {
+      "attribute_id": "S-74",
+      "name": "Initial Step Fixed- Rate Period",
+      "definition": "For reperforming, modified step-rate loans, the number of months between the first payment date of the modified loan and the first step rate adjustment.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 2,
+      "enumeration": [
+        "00",
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "55"
+      ]
+    },
+    {
+      "attribute_id": "S-75",
+      "name": "Step Rate Adjustment Frequency",
+      "definition": "For reperforming, modified step-rate loans, the number of months between each interest rate adjustment.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-76",
+      "name": "Next Step Rate Adjustment Date",
+      "definition": "For reperforming, modified step-rate loans, the month and year that the interest rate is scheduled to increase.",
+      "datatype": "date",
+      "format": "MMCCYY",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-77",
+      "name": "WA Months to Next Step Rate Adjustment",
+      "definition": "For reperforming, modified step-rate loans, the weighted average number of months from the current month to the next date on which the mortgage interest rate increases.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-78",
+      "name": "Periodic Step Rate Cap Up %",
+      "definition": "For reperforming, modified step-rate loans, the maximum percentage points the interest rate may increase at each step rate adjustment date.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-79",
+      "name": "WA Origination Mortgage Loan Amount",
+      "definition": "For reperforming, modified fixed-rate and modified step-rate loans, the weighted average dollar amount of the loans in the security as stated on the notes at the time the loans were originated.",
+      "datatype": "numeric",
+      "format": "9.2",
+      "max_length": 12,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-80",
+      "name": "Average Origination Mortgage Loan Amount",
+      "definition": "For reperforming, modified fixed-rate and modified step-rate loans, the simple average dollar amount of the loans in the security as stated on the notes at the time the loans were originated. This value represents both the interest bearing and non-interest bearing amount.",
+      "datatype": "numeric",
+      "format": "9.2",
+      "max_length": 12,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-81",
+      "name": "WA Origination Interest Rate",
+      "definition": "For reperforming, modified fixed-rate and modified step-rate loans, the weighted average interest rate of the loans as stated on the note at the time the loans were originated.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-82",
+      "name": "WA Origination Loan Term",
+      "definition": "For reperforming, modified fixed-rate and modified step-rate loans, the weighted average number of months in which regularly scheduled borrower payments are due as stated on the note at the time the loans were originated.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-83",
+      "name": "WA Origination Loan-To-Value (LTV)",
+      "definition": "For reperforming, modified fixed-rate and modified step-rate loans, the weighted average ratio, expressed as a percentage, obtained by dividing the amount of the loans at origination by the values of the properties. Property values reflect either the lesser of the sales price or the appraised property value for a purchase, or the appraised property value for a refinance.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-92",
+      "name": "WA Original Interest Only Term",
+      "definition": "For Interest Only Multifamily loans, the weighted average number of months between the first payment due date and the first scheduled principal and interest payment date.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-93",
+      "name": "WA Original Balloon Term",
+      "definition": "For Balloon Multifamily loans, the weighted average number of months between the first payment due date and the scheduled balloon payment date.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-94",
+      "name": "WA Remaining Amortization Term",
+      "definition": "For Multifamily loans, the weighted average remaining number of months in which regularly scheduled borrower payments are due.",
+      "datatype": "numeric",
+      "format": null,
+      "max_length": 3,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-95",
+      "name": "WA Debt Service Coverage Ratio (DSCR)",
+      "definition": "For Multifamily loans, the weighted average ratio of cash available for debt servicing to debt payment at loan underwriting.",
+      "datatype": "numeric",
+      "format": "5.2",
+      "max_length": 8,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-96",
+      "name": "Interest Accrual Method",
+      "definition": "For Multifamily loans, the method for calculating interest payments.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 20,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-97",
+      "name": "Prepayment Penalty Provision",
+      "definition": "For Multifamily loans, the prepayment penalty terms throughout the life of the loan.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 50,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-98",
+      "name": "Green Advantage",
+      "definition": "For Multifamily loans, the type of loan that is associated with energy and water efficient properties.",
+      "datatype": "string",
+      "format": null,
+      "max_length": 20,
+      "enumeration": null
+    },
+    {
+      "attribute_id": "S-99",
+      "name": "WA Net Interest Rate (Converted)",
+      "definition": "The weighted average interest rate of the loans less servicing fees and guarantor fees converted from Actual/360 to 30/360 interest accrual method.",
+      "datatype": "numeric",
+      "format": "2.3",
+      "max_length": 6,
+      "enumeration": null
+    }
+  ]
+}
